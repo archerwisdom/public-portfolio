@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <?php
-ob_start();
+    ob_start();
 
-if (!isset($_SESSION)) {
-    session_start();
-}
+    if (!isset($_SESSION)) {
+        session_start();
+    }
 
-require_once "scripts/config.php";
-require_once "scripts/db_con.php";
+    require_once "scripts/config.php";
+    require_once "scripts/db_con.php";
 
-$promotions = mysqli_query($db, "SELECT * FROM promotion ORDER BY RAND() LIMIT 1");
-$restaurants = mysqli_query($db, "SELECT * FROM featured ORDER BY RAND() LIMIT 1");
-$deals = mysqli_query($db, "SELECT * FROM deals ORDER BY RAND() LIMIT 9");
-$news = mysqli_query($db, "SELECT * FROM news");
+    $promotions = mysqli_query($db, "SELECT * FROM promotion ORDER BY RAND() LIMIT 1");
+    $restaurants = mysqli_query($db, "SELECT * FROM featured ORDER BY RAND() LIMIT 1");
+    $deals = mysqli_query($db, "SELECT * FROM deals ORDER BY RAND() LIMIT 9");
+    $news = mysqli_query($db, "SELECT * FROM news");
 ?>
 <html lang="en">
 
@@ -108,21 +108,20 @@ $news = mysqli_query($db, "SELECT * FROM news");
                         foreach($other_deals as $deal => $dfile) {
                             echo `<a href="../{$dfile}.php" class="list-group-item">{$deal} Shops</a>`;
                         }
-
                     ?>
 					</div>
 					
 					<p class="lead list-header">Promotions</p>
 					<div class="container-fluid">
 						<div class="row">
-								<?php while ($row_promotion = mysqli_fetch_array($promotions, MYSQLI_ASSOC)): ?>
-                                  
-                                        <div class="thumbnail promotion">
-                                            <a href="<?php echo $row_promotion['link']; ?>"><img src='../scripts/image.php?id=<?php echo $row_promotion['photo']; ?>' class="img-responsive center-block " /> </a>
-											<span><?php echo $row_promotion['title'] ?></span>
-                                        </div>
-										 
-                                <?php endwhile; ?>
+                            <?php while ($row_promotion = mysqli_fetch_array($promotions, MYSQLI_ASSOC)): ?>
+                                
+                                    <div class="thumbnail promotion">
+                                        <a href="<?php echo $row_promotion['link']; ?>"><img src='../scripts/image.php?id=<?php echo $row_promotion['photo']; ?>' class="img-responsive center-block " /> </a>
+                                        <span><?php echo $row_promotion['title'] ?></span>
+                                    </div>
+                                        
+                            <?php endwhile; ?>
 						</div>
 					</div>
 				</div>
@@ -130,26 +129,25 @@ $news = mysqli_query($db, "SELECT * FROM news");
 			
             <div class="col-md-9">
                 <div class="row">
-				
 					<?php while ($row_deal = mysqli_fetch_array($deals, MYSQLI_ASSOC)): ?>
-                                    <div class="col-sm-4 col-lg-4 col-md-4">
-                                        <div class="thumbnail">
-                                            <a href="dealDetail.php?id=<?php echo $row_deal['id']; ?>">
-                                            <div class="crop-container">
-                                                <img src='../scripts/image.php?id=<?php echo $row_deal['photo']; ?>' /> 
-                                            </div>
-                                            </a>
-                                            <div class="caption" >
-                                                <h4><a href="dealDetail.php?id=<?php echo $row_deal['id']; ?>"><?php echo substr($row_deal['restaurant_name'],0,35); ?>..</a></h4>
-                                                <p><?php echo $row_deal['deal_note']; ?></p>
-                                            </div>
-											
-											<div class="ratings">
-													<div style="color: #000;font-weight:bold;">Deal Price : <?php echo $row_deal['item_discounted_price']; ?><!--MYR--></div>
-													
-											</div>
-                                        </div>
-                                    </div>
+                        <div class="col-sm-4 col-lg-4 col-md-4">
+                            <div class="thumbnail">
+                                <a href="dealDetail.php?id=<?php echo $row_deal['id']; ?>">
+                                <div class="crop-container">
+                                    <img src='../scripts/image.php?id=<?php echo $row_deal['photo']; ?>' /> 
+                                </div>
+                                </a>
+                                <div class="caption" >
+                                    <h4><a href="dealDetail.php?id=<?php echo $row_deal['id']; ?>"><?php echo substr($row_deal['restaurant_name'],0,35); ?>..</a></h4>
+                                    <p><?php echo $row_deal['deal_note']; ?></p>
+                                </div>
+                                
+                                <div class="ratings">
+                                        <div style="color: #000;font-weight:bold;">Deal Price : <?php echo $row_deal['item_discounted_price']; ?><!--MYR--></div>
+                                        
+                                </div>
+                            </div>
+                        </div>
                     <?php endwhile; ?>
                     
                 </div>
@@ -171,5 +169,4 @@ $news = mysqli_query($db, "SELECT * FROM news");
     <script src="themejs/bootstrap.min.js"></script>
 
 </body>
-
 </html>
